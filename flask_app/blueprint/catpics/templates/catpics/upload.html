@@ -1,0 +1,104 @@
+{% extends "catpics/base.html" %}
+
+{% block title %}Upload Image{% endblock title %}
+
+{% block main %}
+
+<h2>Upload your cat pic</h2>
+<div class="center">
+        <form method="POST" action="/catpics/upload" enctype="multipart/form-data">
+                <label for="file">
+                        <div>
+                                {% include 'catpics/components/addFileIcon.svg' %}
+                                <b id="filename-display">&nbsp;</b>
+                        </div>
+                        <input class="file-input" id="file" type="file" name="file"
+                                                                        /></label>
+                <button class="submit-btn">Submit</button>
+        </form>
+</div>
+    <script>
+      const input = document.getElementById("file");
+      const filenameDisplay = document.getElementById('filename-display')
+      input.addEventListener("change", (e) => {
+        const fakepath = e.target.value;
+        const fakePathSplit = fakepath.split("\\");
+        const filename = fakePathSplit.pop();
+        filenameDisplay.innerText = filename
+      });
+    </script>
+
+{% endblock main %}
+
+{% block customcss %}
+<style>
+      .submit-btn {
+        padding: 0.5ch 0.75ch;
+        font-size: 1.35rem;
+        font-weight: bold;
+        color: yellow;
+        text-shadow: 1px 1px darkblue;
+        background-color: turquoise;
+        border: 1px solid darkblue;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      header {
+        height: 8vh;
+        height: 8dvh;
+        padding: 1ch 2ch;
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: space-between;
+        align-items: center;
+      }
+      @media screen and (max-width: 700px) {
+        header {
+          border: 1px dotted black;
+        }
+      }
+      h3 {
+        text-align: center;
+        text-decoration: underline;
+        font-size: 1.5rem;
+        margin-top: 1.5em;
+      }
+      main{
+        height: 80vh;
+        height: 80dvh;
+      }
+      .center {
+        max-width: 400px;
+        width: 80%;
+        margin-inline: auto;
+        margin-top: 3em;
+        padding: 4ch 3ch;
+        border: 1px solid black;
+        border-radius: 3ch;
+      }
+      .center form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        row-gap: 1ch;
+        justify-content: center;
+        justify-items: center;
+      }
+      .center form label {
+        display: flex;
+        flex-direction: column;
+      }
+      .center form label div {
+        display: grid;
+        justify-items: center;
+      }
+      .file-input {
+        display: none;
+      }
+      #filename-display {
+        font-size: 1rem;
+        word-wrap: break-word;
+      }
+
+</style>
+{% endblock customcss %}

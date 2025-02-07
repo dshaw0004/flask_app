@@ -1,0 +1,17 @@
+----------------------------------------------------------------------------------------------------
+|      header                 |                           main                                     |
+|44% empty   :navigation bar  |main content here, 80% of main section                |20% of empty |
+|space in the:46% of header's |                               |                      |space on the |
+|left side   :width           |57% of content area            |rest of this space for|right        |
+|            :                |pictures, videos goes here     |searching, following, |             |
+|            :                |                               |promotionals stuffs   |             |
+|            :                |                               |                      |             |
+|            :                |                               |                      |             |
+|            :                |                               |                      |             |
+|            :                |                               |                      |             |
+|            :                |                               |                      |             |
+|            :                |                               |                      |             |
+|            :                |                               |                      |             |
+|            :                |                               |                      |             |
+|            :                |                               |                      |             |
+----------------------------------------------------------------------------------------------------

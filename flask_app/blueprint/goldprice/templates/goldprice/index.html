@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>Digital Gold Price API by dshaw0004</title>
+        <style>
+        * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+        }
+        main{
+                max-width: 80ch;
+                margin: 6rem auto;
+        }
+        h1 {
+                margin-bottom: 1em;
+                text-align: center;
+        }
+        .price-display {
+                max-width: 30ch;
+                margin: 1rem auto;
+                border: 1px solid black;
+                border-radius: 1ch;
+                padding: 1ch 2ch;
+        }
+        .rate {
+                font-weight: 900;
+                margin-block: 1ch;
+                text-align: center;
+        }
+        </style>
+</head>
+<body>
+        <h1>Digital Gold Price API</h1>
+        <main>
+        <p>An API for the price of Digital Gold in India. The rates are webscraped from the <a href="https://safegold.com">safegold.com</a> site which is a digital platform that allows customers to buy, sell and receive vaulted gold at low ticket sizes    . </p>
+        <div class="price-display">
+                <p>Price Today</p>
+                <p class="rate">&#8377;&nbsp;{{gold_price['rate']}}</p>
+
+        </div>
+        <p><b>An important note: Digital Gold have 2 different price one for buying and one for selling. Currently this site only provide the buying rates but I am working on the selling rates too.</b></p>
+        </main>
+</body>
+</html>

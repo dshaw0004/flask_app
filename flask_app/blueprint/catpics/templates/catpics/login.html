@@ -1,0 +1,32 @@
+{% extends "catpics/base.html" %}
+
+{% block main %}
+
+<main class="login-page-main">
+	<form action="/catpics/login" method="post" enctype="multipart/form-data">
+			<div>
+					<label for="username">Username :</label>
+					<input type="text" id="username" name="username" />
+			</div>
+			<div>
+					<label for="password">Password :</label>
+					<input type="password" id="password" name="password" />
+			</div>
+			<button>log in</button>
+	</form>
+	<p>don't have an account, <a href={{url_for('catpics.signup_page')}}>create new</a></p>
+</main>
+
+{% endblock %}
+
+{% block customcss %}
+<style>
+.login-page-main form button {
+	font-size: 1em;
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 1ch;
+	padding: 2px 0.5ch;
+}
+</style>
+{% endblock %}

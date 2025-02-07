@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                <meta charset="UTF-8">
+                <title>{% block title %}PussyPics{% endblock %}</title>
+                <link rel="stylesheet" href="/catpics/statics/catpics/styles.css" media="all">
+                {% block customcss %}
+                {% endblock customcss %}
+        </head>
+        <body>
+                <header>
+                        <div class="title-area">
+                                <div class="icon-container">
+                                        {% include 'catpics/components/logo.svg' %}
+                                </div>
+                                <div class="title-container">
+                                        <p>dedicated site to share</p>
+                                        <h1>Cat Pics</h1>
+                                </div>
+                        </div>
+                        <div>
+                                {% if not login and 'login' != request.path.split('/')[-1] %}
+                                <a href={{url_for('catpics.login_page')}} role="button"> log in</a>
+                                {%endif%}
+                                <a href={{url_for('catpics.upload_page')}} class="upload-btn" role="button">
+                                        Upload
+                                </a>
+                        </div>
+                </header>
+                
+                {% block main %}
+                {% endblock main %}
+                
+                {% with flash_message= get_flashed_messages(with_categories=true)  %}
+                {% if flash_message %}
+                <div class="overlay">
+                    <ul class="flashed">
+                        <span class="overlay-close-btn" role="button" style="cursor: pointer;font-size: 2.5rem;">&times;</span>
+                        {% for category, message in flash_message %}
+                        <li class={{ category }}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- <div class="overlay">
+                        <ul class="flashed">
+                                <span class="overlay-close-btn" role="button">&times;</span>
+                            <li class="message">this is message</li>
+                        </ul>
+                    </div> -->
+                {% endif %}                
+                {% endwith %}
+                <script>
+                        const overlay = document.querySelector('.overlay');
+                        const flashed = overlay.querySelector('.flashed');
+                        const overlayCloseBTN = document.querySelector('.overlay-close-btn')
+
+                        function closeOverlay(e){
+                                e.stopPropagation();
+                                overlay.style.display= 'none';
+                        }
+                        overlay.onclick = closeOverlay
+                        flashed.onclick = e => {e.stopImmediatePropagation();}
+                        overlayCloseBTN.onclick = closeOverlay
+                </script>
+        </body>
+</html>

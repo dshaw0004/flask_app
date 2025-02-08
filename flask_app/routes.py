@@ -1,6 +1,8 @@
+import os
 from .app import app, db
 from flask import render_template, request, jsonify
 from .models import AppInfo
+from .src.ai.gemini import gemini_generate_content
 
 @app.route('/')
 def index():
@@ -61,55 +63,13 @@ def delete_app(app_id):
     db.session.commit()
     return '', 204
 
-
-# @app.route('/login', methods=['POST'])
-# def login():
-#     data = request.get_json()
-#     email = data['email']
-#     password = data['password']
-
-#     user = User.query.filter_by(email=email).first()
-
-#     if user and user.check_password(password):
-#         return user.id, 200
-#     else:
-#         return jsonify({'message': 'Invalid email or password'}), 401
-
-# @app.route('/user/<int:user_id>', methods=['GET'])
-# def get_user_info(user_id):
-#     user = User.query.get(user_id)
-#     if not user:
-#         return jsonify({'message': 'User not found'}), 404
-
-#     friends = Friend.query.filter((Friend.user_id == user_id) | (Friend.friend_id == user_id)).all()
-#     friends_info = []
-#     for friend in friends:
-#         friend_id = friend.friend_id if friend.user_id == user_id else friend.user_id
-#         friend_user = User.query.get(friend_id)
-#         friends_info.append({'id': friend_user.id, 'name': friend_user.name})
-
-#     user_info = {
-#         'id': user.id,
-#         'name': user.name,
-#         'friends': friends_info
-#     }
-
-#     return jsonify(user_info), 200
-
-# @app.route('/messages/<int:user1_id>/<int:user2_id>', methods=['GET'])
-# def get_messages(user1_id, user2_id):
-#     messages = Chat.query.filter(
-#         ((Chat.sender_id == user1_id) & (Chat.receiver_id == user2_id)) |
-#         ((Chat.sender_id == user2_id) & (Chat.receiver_id == user1_id))
-#     ).all()
-
-#     messages_info = []
-#     for message in messages:
-#         messages_info.append({
-#             'sender_id': message.sender_id,
-#             'receiver_id': message.receiver_id,
-#             'message': message.message
-#         })
-
-#     return jsonify(messages_info), 200
-
+@app.route('/ai-response/<prompt>')
+def ai_response(prompt: str):
+    # TODO: Need to apply rate limiting in case it get compromised [ use Flask-Limiter ]
+    access_token = request.headers.get('AI_ACCESS_TOKEN') # This should not be same as gemini api key
+    saved_access_token = os.getenv('AI_ACCESS_TOKEN')
+    if access_token is None or access_token != saved_access_token:
+        return 'You are not authorized to access this endpoint', 401
+    content = gemini_generate_content(prompt=prompt)
+    return content
+    

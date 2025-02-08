@@ -14,7 +14,8 @@ def gemini_generate_content(prompt: str) -> str:
 
 
 if '__main__' == __name__:
-    print(gemini_generate_content('is google evil'))
+    prompt = input('Enter your prompt:\n>>> ')
+    print(gemini_generate_content(prompt))
 '''
 curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YOUR_API_KEY" \
 -H 'Content-Type: application/json' \

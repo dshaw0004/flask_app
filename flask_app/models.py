@@ -7,14 +7,14 @@ import re
 
 class AppInfo(db.Model):
     __tablename__ = 'appinfo'
-    app_id = db.Column(db.String, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    description = db.Column(db.String)
-    platform = db.Column(db.String, nullable=False)
-    version = db.Column(db.String)
-    download_link = db.Column(db.String, nullable=False)
-    thumbnail = db.Column(db.String)
-    author = db.Column(db.String, nullable=False)
+    app_id = db.Column(db.String(255), primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(255))
+    platform = db.Column(db.String(255), nullable=False)
+    version = db.Column(db.String(255))
+    download_link = db.Column(db.String(255), nullable=False)
+    thumbnail = db.Column(db.String(255))
+    author = db.Column(db.String(255), nullable=False)
 
     @validates('app_id')
     def validate_id(self, key, app_id):

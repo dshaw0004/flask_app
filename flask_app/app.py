@@ -8,7 +8,6 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://dshaw0004:planksconstant@dshaw0004.mysql.pythonanywhere-services.com/dshaw0004$default'
 db_password = os.environ.get('MYSQL_DB_PASSWORD')
 db_uri = f'mysql+mysqldb://dshaw0004:{db_password}@dshaw0004.mysql.pythonanywhere-services.com/dshaw0004$default'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri

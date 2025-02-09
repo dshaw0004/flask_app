@@ -1,9 +1,11 @@
 import os
+from flask_app.app import envs
 from google import genai
 
 
 def gemini_generate_content(prompt: str) -> str:
-    API_KEY = os.getenv('GEMINI_API_KEY')
+    # API_KEY = os.getenv('GEMINI_API_KEY')
+    API_KEY = envs.get('GEMINI_API_KEY')
     client = genai.Client(api_key=API_KEY)
 
     response = client.models.generate_content(

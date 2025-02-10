@@ -7,8 +7,11 @@ from sqlalchemy.exc import OperationalError, PendingRollbackError
 
 @app.route('/')
 def index():
-    return 'Hi, I am Dipankar Shaw'
+    return render_template('index.html')
 
+@app.route('/about')
+def about_page():
+    return render_template('about.html')
 
 @app.route('/apps', methods=['GET'])
 def get_apps():

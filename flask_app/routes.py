@@ -102,7 +102,7 @@ def delete_app(app_id):
     # if selected_app is None:
     return jsonify({"error": "App not found"}), 404
 
-@app.route('/ai-response')
+@app.route('/ai-response', methods=['POST'])
 def ai_response():
     # TODO: Need to apply rate limiting in case it get compromised [ use Flask-Limiter ]
     access_token = request.headers.get('AI-ACCESS-TOKEN') # This should not be same as gemini api key

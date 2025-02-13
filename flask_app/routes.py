@@ -48,11 +48,19 @@ def add_app():
             download_link=app_link, thumbnail=thumbnail,
             author=author
             )
+    for _ in (1, 2, 3):
+        try:
+            db.session.add(new_app)
+            db.session.commit()
+            return jsonify(new_app.as_dict()), 201
+        except OperationalError:
+            pass
+        except PendingRollbackError:
+            db.session.rollback()
+            db.session.commit()
+    return "<h1>Somethng went wrong at the server, please try again later</h1>", 500
 
-    db.session.add(new_app)
-    db.session.commit()
 
-    return jsonify(new_app.as_dict()), 201
 
 @app.route('/apps/<app_id>', methods=['PUT'])
 def update_app(app_id):

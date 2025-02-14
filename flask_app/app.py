@@ -13,8 +13,8 @@ with open(f'{CWD}/env.json') as file:
     envs = json.load(file)
 
 db_password = envs.get('MYSQL_DB_PASSWORD')
-db_uri = f'mysql+mysqldb://dshaw0004:{db_password}@dshaw0004.mysql.pythonanywhere-services.com/dshaw0004$default'
-# db_uri = 'sqlite:///test.db'
+# db_uri = f'mysql+mysqldb://dshaw0004:{db_password}@dshaw0004.mysql.pythonanywhere-services.com/dshaw0004$default'
+db_uri = 'sqlite:///test.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 7069
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False

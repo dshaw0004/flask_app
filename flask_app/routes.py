@@ -1,4 +1,4 @@
-import os
+import urllib.parse
 from .app import app, db, envs
 from flask import render_template, request, jsonify
 from .models import AppInfo
@@ -22,6 +22,28 @@ def get_apps():
         try:
             apps = inner()
             return jsonify([appli.as_dict() for appli in apps])
+        except OperationalError:
+            pass
+        except PendingRollbackError:
+            db.session.rollback()
+            db.session.commit()
+    return "<h1>Unable to provide the data, please try again later or contact the admin</h1>", 500
+
+@app.route('/app/<encoded_app_id>', methods=['GET'])
+def get_specific_app(encoded_app_id):
+    '''
+    encoded_app_id will be <author>%2E<app_name>
+    '''
+    app_id = urllib.parse.unquote(encoded_app_id)
+    def inner() -> (AppInfo | None):
+        application: AppInfo | None = AppInfo.query.get(app_id)
+        return application
+    for _ in (1, 2, 3):
+        try:
+            application: AppInfo | None = inner()
+            if application is None:
+                return jsonify({'message': 'application not found'}), 404
+            return jsonify(application.as_dict())
         except OperationalError:
             pass
         except PendingRollbackError:
